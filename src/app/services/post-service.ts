@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { firstValueFrom, lastValueFrom, Observable } from 'rxjs';
 import { Post } from '../classes/post';
 
 @Injectable({
@@ -18,4 +18,8 @@ export class PostService {
     return this.http.get<Post[]>(`${this.baseUrl}/posts`);
   }
 
+  public async postsFoo(): Promise<Post[]> {
+    const foo = await lastValueFrom(this.http.get<Post[]>(`${this.baseUrl}/posts`));
+    return foo;
+  }
 }
